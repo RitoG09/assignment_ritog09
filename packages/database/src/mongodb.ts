@@ -1,0 +1,13 @@
+import dotenv from "dotenv";
+import path from "path";
+dotenv.config({ path: path.resolve(__dirname, "../../../.env") });
+import mongoose from "mongoose";
+
+export async function connectMongo() {
+  const uri = process.env.MONGODB_URI;
+  if (!uri) {
+    throw new Error("MONGODB_URI is missing");
+  }
+  await mongoose.connect(uri);
+  console.log("MongoDB connected");
+}
