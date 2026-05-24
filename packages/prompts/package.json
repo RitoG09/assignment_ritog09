@@ -1,0 +1,18 @@
+{
+  "name": "@repo/prompts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -b",
+    "dev": "tsc -b -w"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@repo/shared-types": "workspace:*",
+    "@repo/typescript-config": "workspace:*"
+  }
+}
