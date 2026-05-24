@@ -1,8 +1,8 @@
-import { AssignmentInput } from "./assignment";
+import { AssignmentProcessingPayload } from "./assignment";
 
 export interface questionGenerationJob {
   assignmentId: string;
-  payload: AssignmentInput;
+  payload: AssignmentProcessingPayload;
 }
 
 export interface PdfGenerationJob {

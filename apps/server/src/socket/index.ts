@@ -8,7 +8,6 @@ export function initSocket(server: any) {
       origin: "*",
     },
   });
-
   io.on("connection", (socket) => {
     console.log("Socket connected", socket.id);
   });

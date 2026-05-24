@@ -17,6 +17,10 @@ export interface AssignmentInput {
   questionTypes: QuestionTypeConfig[];
 }
 
+export interface AssignmentProcessingPayload extends AssignmentInput {
+  filePath?: string;
+}
+
 export interface GeneratedPaper {
   sections: QuestionSection[];
   totalQuestions: number;

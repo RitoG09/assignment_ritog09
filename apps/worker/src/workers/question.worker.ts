@@ -50,24 +50,24 @@ worker.on("failed", (job, err) => {
 // })();
 
 //test db
-(async () => {
-  await connectMongo();
-  const assignment = await createAssignment({
-    sourceType: "text",
-    text: "sample text",
-    questionTypes: [
-      {
-        type: "mcq",
-        count: 2,
-        marks: 1,
-      },
-    ],
-  });
-  console.log(assignment);
-  await updateAssignmentStatus(assignment._id.toString(), "processing");
-  await saveGeneratedPaper(assignment._id.toString(), {
-    sections: [],
-    totalMarks: 10,
-    totalQuestions: 5,
-  });
-})();
+// (async () => {
+//   await connectMongo();
+//   const assignment = await createAssignment({
+//     sourceType: "text",
+//     text: "sample text",
+//     questionTypes: [
+//       {
+//         type: "mcq",
+//         count: 2,
+//         marks: 1,
+//       },
+//     ],
+//   });
+//   console.log(assignment);
+//   await updateAssignmentStatus(assignment._id.toString(), "processing");
+//   await saveGeneratedPaper(assignment._id.toString(), {
+//     sections: [],
+//     totalMarks: 10,
+//     totalQuestions: 5,
+//   });
+// })();
