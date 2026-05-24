@@ -1,6 +1,6 @@
 export type Difficulty = "easy" | "medium" | "hard";
 
-export type SourceType = "pdf" | "docx" | "text";
+export type SourceType = "pdf" | "text";
 
 export type AssignmentStatus =
   | "pending"
