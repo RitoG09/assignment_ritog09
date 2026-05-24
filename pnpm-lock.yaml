@@ -26,6 +26,12 @@ importers:
       '@repo/queue':
         specifier: workspace:^
         version: link:../../packages/queue
+      '@repo/shared-types':
+        specifier: workspace:^
+        version: link:../../packages/shared-types
+      '@repo/validators':
+        specifier: workspace:^
+        version: link:../../packages/validators
       '@types/cors':
         specifier: ^2.8.19
         version: 2.8.19

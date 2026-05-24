@@ -1,16 +1,17 @@
 import "./workers/question.worker";
-import "./parsers/cleaner";
-import "./parsers/pdf.parser";
-import "./parsers/text.parser";
-import { extractContent } from "./parsers/extractor";
+import { connectMongo } from "@repo/database";
 
-console.log("Worker running");
+const startWorker = async () => {
+  await connectMongo();
+  console.log("Worker running...");
+};
+startWorker();
 
-(async () => {
-  const text = await extractContent({
-    sourceType: "pdf",
-    filePath: "uploads/demo.pdf",
-  });
+// (async () => {
+//   const text = await extractContent({
+//     sourceType: "pdf",
+//     filePath: "uploads/demo.pdf",
+//   });
 
-  console.log(text);
-})();
+//   console.log(text);
+// })();

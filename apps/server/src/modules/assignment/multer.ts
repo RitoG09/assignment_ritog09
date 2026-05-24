@@ -2,7 +2,7 @@ import multer from "multer";
 
 const storage = multer.diskStorage({
   destination: (_, __, cb) => {
-    cb(null, "uploads/");
+    cb(null, "../worker/uploads/");
   },
   filename: (_, file, cb) => {
     const uniqueName = Date.now() + "-" + file.originalname;

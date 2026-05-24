@@ -2,7 +2,7 @@ import { z } from "zod";
 
 import { questionTypeSchema } from "./question.schema";
 
-export const sourceTypeSchema = z.enum(["pdf", "image", "text"]);
+export const sourceTypeSchema = z.enum(["pdf", "text"]);
 
 export const questionTypeConfigSchema = z.object({
   type: questionTypeSchema,

@@ -1,17 +1,17 @@
-import { Router } from "express";
-import { questionQueue } from "@repo/queue";
+// import { Router } from "express";
+// import { questionQueue } from "@repo/queue";
 
-const router: Router = Router();
+// const router: Router = Router();
 
-router.get("/", async (_, res) => {
-  const job = await questionQueue.add("generate-question-paper", {
-    topic: "Photosynthesis",
-    difficulty: "medium",
-  });
-  res.json({
-    success: true,
-    jobId: job.id,
-  });
-});
+// router.get("/", async (_, res) => {
+//   const job = await questionQueue.add("generate-question-paper", {
+//     topic: "Photosynthesis",
+//     difficulty: "medium",
+//   });
+//   res.json({
+//     success: true,
+//     jobId: job.id,
+//   });
+// });
 
-export default router;
+// export default router;
