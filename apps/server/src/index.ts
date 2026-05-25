@@ -5,6 +5,7 @@ import { app } from "./app";
 import { connectMongo } from "@repo/database";
 import { initSocket } from "./socket";
 
+
 const PORT = process.env.PORT || 8000;
 
 async function bootstrap() {

@@ -36,6 +36,7 @@ export interface AssignmentDocument {
   rawText?: string;
   additionalInstructions?: string;
   generatedPaper?: GeneratedPaper;
+  pdfPath?: string;
   error?: string;
   createdAt: Date;
   updatedAt: Date;

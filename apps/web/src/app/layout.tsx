@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Bricolage_Grotesque } from "next/font/google";
 import "./globals.css";
+import { Toaster } from "react-hot-toast";
 
 const bricolage = Bricolage_Grotesque({
   subsets: ["latin"],
@@ -23,6 +24,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${bricolage.variable} font-sans`}>
+        <Toaster position="bottom-right" />
         {children}
       </body>
     </html>

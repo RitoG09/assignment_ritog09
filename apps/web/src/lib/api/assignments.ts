@@ -14,7 +14,19 @@ export const getAssignmentById = async (id: string) => {
   return response.data;
 };
 
-export const getAllAssignments = async () => {
-  const response = await api.get("/assignments");
+export const getAllAssignments = async (search?: string) => {
+  const response = await api.get("/assignments", {
+    params: search ? { search } : {},
+  });
+  return response.data;
+};
+
+export const deleteAssignment = async (id: string) => {
+  const response = await api.delete(`/assignments/${id}`);
+  return response.data;
+};
+
+export const exportPdf = async (id: string) => {
+  const response = await api.post(`/assignments/${id}/export`);
   return response.data;
 };

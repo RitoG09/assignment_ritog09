@@ -12,6 +12,7 @@ import { AssignmentHeader } from "./assignment-header";
 import { AssignmentProgress } from "./assignment-progress";
 import { AssignmentDetailsCard } from "./assignment-details-card";
 import { UploadDropzone } from "./upload-dropzone";
+import { TitleField } from "./title-field";
 import { DueDateField } from "./due-date-field";
 import { QuestionTypesSection } from "./question-types-section";
 import { AdditionalInfoField } from "./additional-info-field";
@@ -19,10 +20,18 @@ import { AssignmentFooterActions } from "./assignment-footer-actions";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createAssignment } from "@/lib/api/assignments";
+import toast from "react-hot-toast";
 
 export function AssignmentCreateForm() {
   const [file, setFile] = useState<File | null>(null);
-  const { control, register, watch, setValue, handleSubmit } = useForm({
+  const {
+    control,
+    register,
+    watch,
+    setValue,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
     resolver: zodResolver(assignmentSchema),
     defaultValues: defaultAssignmentValues,
   });
@@ -47,19 +56,26 @@ export function AssignmentCreateForm() {
   const router = useRouter();
 
   const onSubmit = async (values: any) => {
+    if (!file) {
+      toast.error("Please upload a PDF document file to process");
+      return;
+    }
+
     try {
       const formData = new FormData();
 
-      if (file) {
-        formData.append("file", file);
+      formData.append("file", file);
+      formData.append("sourceType", "pdf");
+
+      if (values.title) {
+        formData.append("title", values.title);
       }
-      formData.append("sourceType", file ? "pdf" : "text");
 
       formData.append("dueDate", values.dueDate || "");
 
       formData.append(
         "additionalInstructions",
-        values.additionalInformation || "",
+        values.additionalInfo || "",
       );
 
       const transformedQuestionTypes = values.questionTypes.map((q: any) => ({
@@ -78,6 +94,7 @@ export function AssignmentCreateForm() {
       router.push(`/assignments/output?id=${assignmentId}`);
     } catch (error) {
       console.error(error);
+      toast.error("Failed to submit assignment form");
     }
   };
 
@@ -93,6 +110,7 @@ export function AssignmentCreateForm() {
 
           <AssignmentDetailsCard>
             <UploadDropzone value={file} onChange={setFile} />
+            <TitleField register={register} error={errors.title?.message} />
             <DueDateField setValue={setValue} watch={watch} />
 
             <QuestionTypesSection
@@ -115,3 +133,4 @@ export function AssignmentCreateForm() {
     </form>
   );
 }
+

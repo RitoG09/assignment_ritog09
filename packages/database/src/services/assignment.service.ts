@@ -18,7 +18,7 @@ export const updateAssignmentStatus = async (
       status,
     },
     {
-      new: true,
+      returnDocument: "after",
     },
   );
 };
@@ -34,7 +34,7 @@ export const saveGeneratedPaper = async (
       status: "completed",
     },
     {
-      new: true,
+      returnDocument: "after",
     },
   );
 };
@@ -50,7 +50,7 @@ export const saveAssignmentError = async (
       error,
     },
     {
-      new: true,
+      returnDocument: "after",
     },
   );
 };
@@ -59,8 +59,25 @@ export const getAssignmentById = async (assignmentId: string) => {
   return AssignmentModel.findById(assignmentId);
 };
 
-export const getAllAssignments = async () => {
-  return AssignmentModel.find().sort({
+export const getAllAssignments = async (search?: string) => {
+  const query = search ? { title: { $regex: search, $options: "i" } } : {};
+  return AssignmentModel.find(query).sort({
     createdAt: -1,
   });
+};
+
+export const deleteAssignment = async (assignmentId: string) => {
+  return AssignmentModel.findByIdAndDelete(assignmentId);
+};
+
+export const savePdfPath = async (assignmentId: string, pdfPath: string) => {
+  return AssignmentModel.findByIdAndUpdate(
+    assignmentId,
+    {
+      pdfPath,
+    },
+    {
+      returnDocument: "after",
+    },
+  );
 };

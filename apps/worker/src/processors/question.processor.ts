@@ -7,6 +7,7 @@ import {
 import { Job } from "bullmq";
 import { extractContent } from "../parsers/extractor";
 import { emitSocketEvent } from "../services/socket.service";
+import { buildCompressedContext } from "../services/context.service";
 
 export const processQuestionGenerationJob = async (job: Job) => {
   const { assignmentId, payload } = job.data;
@@ -14,7 +15,7 @@ export const processQuestionGenerationJob = async (job: Job) => {
   try {
     await updateAssignmentStatus(assignmentId, "processing");
 
-    const extracredText = await extractContent({
+    const extractedText = await extractContent({
       sourceType: payload.sourceType,
       filePath: payload.filePath,
       text: payload.text,
@@ -29,8 +30,25 @@ export const processQuestionGenerationJob = async (job: Job) => {
       },
     });
 
-    // AI question generation (websocket notification)
-    const generatePaper = await generateQuestions(extracredText, payload);
+    await emitSocketEvent({
+      assignmentId,
+      event: "generation-progress",
+      data: {
+        step: "Chunking document...",
+      },
+    });
+    // AI question generation (chunking + question generation)
+    const compressedContext = await buildCompressedContext(extractedText);
+
+    // before generating (websocket notification)
+    await emitSocketEvent({
+      assignmentId,
+      event: "generation-progress",
+      data: {
+        step: "Generating questions...",
+      },
+    });
+    const generatePaper = await generateQuestions(compressedContext, payload);
 
     const totalQuestions = generatePaper.sections.reduce(
       (acc, section) => acc + section.questions.length,
@@ -42,6 +60,14 @@ export const processQuestionGenerationJob = async (job: Job) => {
         acc + section.questions.reduce((a, q) => a + q.marks, 0),
       0,
     );
+
+    await emitSocketEvent({
+      assignmentId,
+      event: "generation-progress",
+      data: {
+        step: "Structuring paper...",
+      },
+    });
 
     await saveGeneratedPaper(assignmentId, {
       ...generatePaper,

@@ -1,1 +1,1 @@
-{"root":["./src/index.ts","./src/parsers/json.parser.ts","./src/providers/groq.provider.ts","./src/services/question-generation.service.ts","./src/utils/sanitize.ts"],"version":"5.9.2"}
+{"root":["./src/index.ts","./src/summarize.ts","./src/parsers/json.parser.ts","./src/providers/groq.provider.ts","./src/services/question-generation.service.ts","./src/utils/sanitize.ts"],"version":"5.9.2"}

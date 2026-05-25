@@ -23,10 +23,10 @@ export const extractContent = async ({
       extractedText = await parsePdf(filePath);
       break;
     case "text":
-      if (!filePath) {
-        throw new Error("PDF file path missing");
+      if (!text) {
+        throw new Error("Text missing");
       }
-      extractedText = await parseText(text || "");
+      extractedText = await parseText(text);
       break;
     default:
       throw new Error("Unsupported source type");

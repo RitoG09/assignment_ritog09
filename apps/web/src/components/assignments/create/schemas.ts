@@ -1,17 +1,17 @@
 import { z } from "zod";
 
 export const assignmentSchema = z.object({
-  dueDate: z.string().min(1, "Due date is required"),
-
+  title: z.string().min(1, "Title is required"),
+  dueDate: z.string().optional(),
   additionalInfo: z.string().optional(),
-
   questionTypes: z.array(
     z.object({
       type: z.string(),
-      count: z.number().min(1),
-      marks: z.number().min(1),
+      count: z.number().min(1, "Count must be at least 1"),
+      marks: z.number().min(1, "Marks must be at least 1"),
     }),
   ),
 });
 
 export type AssignmentFormValues = z.infer<typeof assignmentSchema>;
+

@@ -1,4 +1,4 @@
-import { Worker, Job } from "bullmq";
+import { Worker } from "bullmq";
 import { redis } from "@repo/database";
 import { questionQueueName } from "@repo/queue";
 import { generateQuestions } from "@repo/ai";

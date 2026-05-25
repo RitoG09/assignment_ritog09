@@ -13,6 +13,7 @@ export const QUESTION_TYPE_OPTIONS = Object.keys(
 ) as QuestionTypeLabel[];
 
 export const defaultAssignmentValues: AssignmentFormValues = {
+  title: "",
   dueDate: "",
   additionalInfo: "",
   questionTypes: [
@@ -22,6 +23,7 @@ export const defaultAssignmentValues: AssignmentFormValues = {
     { type: "Numerical Problems", count: 5, marks: 5 },
   ],
 };
+
 
 export const newQuestionTypeDefaults = {
   type: "Multiple Choice Questions",

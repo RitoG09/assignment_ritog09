@@ -85,7 +85,10 @@ export function Sidebar() {
       <div>
         {/* Header */}
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
+          <Link
+            href="/assignments"
+            className="flex items-center gap-3 cursor-pointer hover:opacity-90 transition-opacity"
+          >
             {/* Logo */}
             <div
               className="w-[40px] h-[40px] rounded-[14px] flex items-center justify-center shrink-0"
@@ -111,8 +114,9 @@ export function Sidebar() {
             <h1 className="text-[27px] font-bold tracking-[-0.03em] text-[#111111]">
               VedaAI
             </h1>
-          </div>
+          </Link>
         </div>
+
 
         {/* CTA */}
         <div

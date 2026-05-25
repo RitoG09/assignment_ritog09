@@ -1,6 +1,7 @@
 import express, { Application } from "express";
 import cors from "cors";
 import helmet from "helmet";
+import path from "path";
 // import testRoute from "./routes/test.route";
 import assignmentRoutes from "./modules/assignment/assignment.route";
 import socketRoutes from "./modules/socket/socket.route";
@@ -11,6 +12,8 @@ app.use(cors());
 app.use(helmet());
 
 app.use(express.json());
+
+app.use("/pdfs", express.static(path.resolve(__dirname, "../../worker/pdfs")));
 
 app.use("/api/assignments", assignmentRoutes);
 app.use("/api/socket", socketRoutes);

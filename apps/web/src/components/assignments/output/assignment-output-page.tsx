@@ -21,7 +21,7 @@ export function AssignmentOutputPage() {
   }
 
   if (assignment?.status === "pending" || assignment?.status === "processing") {
-    return <AssignmentProcessing />;
+    return <AssignmentProcessing step={assignment?.step} />;
   }
 
   if (assignment?.status === "failed") {
@@ -30,5 +30,10 @@ export function AssignmentOutputPage() {
     );
   }
 
-  return <GeneratedPaper generatedPaper={assignment.generatedPaper} />;
+  return (
+    <GeneratedPaper
+      generatedPaper={assignment.generatedPaper}
+      assignmentId={assignment._id}
+    />
+  );
 }
