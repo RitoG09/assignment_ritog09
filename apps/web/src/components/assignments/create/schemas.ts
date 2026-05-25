@@ -8,7 +8,7 @@ export const assignmentSchema = z.object({
   questionTypes: z.array(
     z.object({
       type: z.string(),
-      questions: z.number().min(1),
+      count: z.number().min(1),
       marks: z.number().min(1),
     }),
   ),

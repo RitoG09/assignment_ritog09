@@ -1,6 +1,6 @@
 import { ChevronDown, X } from "lucide-react";
 import type { UseFormRegister, UseFormSetValue } from "react-hook-form";
-import { QUESTION_TYPE_OPTIONS, type QuestionTypeOption } from "./constants";
+import { QUESTION_TYPE_OPTIONS, type QuestionTypeLabel } from "./constants";
 import type { AssignmentFormValues } from "./schemas";
 import { Stepper } from "./stepper";
 
@@ -21,7 +21,7 @@ export function QuestionTypeRow({
   setValue,
   onRemove,
 }: QuestionTypeRowProps) {
-  const questions = row?.questions ?? 1;
+  const questions = row?.count ?? 1;
   const marks = row?.marks ?? 1;
 
   return (
@@ -35,12 +35,12 @@ export function QuestionTypeRow({
             {...register(`questionTypes.${index}.type`)}
             className="h-[56px] w-full appearance-none rounded-full border border-[#ECECEC] bg-white px-5 pr-11 text-[15px] font-medium text-[#2A2A2A] outline-none lg:h-[58px] lg:px-6 lg:text-[16px]"
           >
-            {QUESTION_TYPE_OPTIONS.map((option) => (
-              <option key={option} value={option}>
-                {option}
+            {QUESTION_TYPE_OPTIONS.map((label) => (
+              <option key={label} value={label}>
+                {label}
               </option>
             ))}
-            {!QUESTION_TYPE_OPTIONS.includes(row?.type as QuestionTypeOption) &&
+            {!QUESTION_TYPE_OPTIONS.includes(row?.type as QuestionTypeLabel) &&
             row?.type ? (
               <option value={row.type}>{row.type}</option>
             ) : null}
@@ -63,13 +63,10 @@ export function QuestionTypeRow({
         label="No. of Questions"
         value={questions}
         onDecrement={() =>
-          setValue(
-            `questionTypes.${index}.questions`,
-            Math.max(1, questions - 1),
-          )
+          setValue(`questionTypes.${index}.count`, Math.max(1, questions - 1))
         }
         onIncrement={() =>
-          setValue(`questionTypes.${index}.questions`, questions + 1)
+          setValue(`questionTypes.${index}.count`, questions + 1)
         }
       />
 

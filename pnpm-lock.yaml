@@ -145,6 +145,9 @@ importers:
         specifier: ^5.0.13
         version: 5.0.13(@types/react@19.2.2)(react@19.2.0)
     devDependencies:
+      '@repo/database':
+        specifier: workspace:*
+        version: link:../../packages/database
       '@repo/eslint-config':
         specifier: workspace:*
         version: link:../../packages/eslint-config

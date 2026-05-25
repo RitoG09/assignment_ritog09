@@ -58,3 +58,9 @@ export const saveAssignmentError = async (
 export const getAssignmentById = async (assignmentId: string) => {
   return AssignmentModel.findById(assignmentId);
 };
+
+export const getAllAssignments = async () => {
+  return AssignmentModel.find().sort({
+    createdAt: -1,
+  });
+};

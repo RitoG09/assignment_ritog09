@@ -1,6 +1,12 @@
 import { ArrowLeft, ArrowRight } from "lucide-react";
 
-export function AssignmentFooterActions() {
+interface AssignmentFooterActionsProps {
+  loading?: boolean;
+}
+
+export function AssignmentFooterActions({
+  loading,
+}: AssignmentFooterActionsProps) {
   return (
     <div className="mt-8 flex items-center justify-between gap-4">
       <button
@@ -12,10 +18,11 @@ export function AssignmentFooterActions() {
       </button>
 
       <button
-        type="button"
+        type="submit"
+        disabled={loading}
         className="flex h-[54px] items-center gap-2.5 rounded-full bg-[#151515] px-7 text-[17px] font-semibold text-white shadow-[0_12px_32px_rgba(0,0,0,0.2)] transition-colors hover:bg-black lg:h-[58px] lg:px-9 lg:text-[18px]"
       >
-        Next
+        {loading ? "Generating..." : "Next"}
         <ArrowRight className="h-5 w-5" />
       </button>
     </div>

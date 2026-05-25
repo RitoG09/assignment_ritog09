@@ -46,9 +46,6 @@ export function UploadDropzone({ value, onChange }: UploadDropzoneProps) {
     noClick: true,
     maxSize: MAX_SIZE,
     accept: {
-      "image/png": [],
-      "image/jpeg": [],
-      "image/jpg": [],
       "application/pdf": [],
     },
   });
@@ -83,9 +80,7 @@ export function UploadDropzone({ value, onChange }: UploadDropzoneProps) {
                 : "Choose a file or drag & drop it here"}
             </p>
 
-            <p className="mt-1.5 text-[14px] text-[#A1A1A1]">
-              JPEG, PNG, PDF upto 10MB
-            </p>
+            <p className="mt-1.5 text-[14px] text-[#A1A1A1]">PDF upto 10MB</p>
 
             <button
               type="button"
