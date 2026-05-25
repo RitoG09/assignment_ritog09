@@ -1,14 +1,36 @@
 import { Server } from "socket.io";
 
-export let io: Server;
+let io: Server;
 
-export function initSocket(server: any) {
-  io = new Server(server, {
+export const initSocket = (httpServer: any) => {
+  io = new Server(httpServer, {
     cors: {
-      origin: "*",
+      origin: "http://localhost:3000",
+      credentials: true,
     },
   });
+
   io.on("connection", (socket) => {
-    console.log("Socket connected", socket.id);
+    console.log("Client connected:", socket.id);
+
+    socket.on("join-assignment", (assignmentId: string) => {
+      socket.join(`assignment:${assignmentId}`);
+
+      console.log(`Socket joined assignment:${assignmentId}`);
+    });
+
+    socket.on("disconnect", () => {
+      console.log("Client disconnected:", socket.id);
+    });
   });
-}
+
+  return io;
+};
+
+export const getIO = () => {
+  if (!io) {
+    throw new Error("Socket.io not initialized");
+  }
+
+  return io;
+};

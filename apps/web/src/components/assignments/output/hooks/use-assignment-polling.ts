@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { getAssignmentById } from "@/lib/api/assignments";
-import { interval } from "date-fns";
+import { socket } from "@/lib/socket";
 
 export const useAssignmentPolling = (assignmentId: string | null) => {
   const [assignment, setAssignment] = useState<any>(null);
@@ -28,7 +28,41 @@ export const useAssignmentPolling = (assignmentId: string | null) => {
     fetchAssignment();
   }, [assignmentId]);
 
-  //poling logic
+  // join socket room
+  useEffect(() => {
+    if (!assignmentId) return;
+
+    socket.emit("join-assignment", assignmentId);
+  }, [assignmentId]);
+
+  // socket listeners
+  useEffect(() => {
+    socket.on("generation-progress", (data) => {
+      setAssignment((prev: any) => ({
+        ...prev,
+        status: data.status,
+      }));
+    });
+
+    socket.on("generation-completed", async () => {
+      const response = await getAssignmentById(assignmentId!);
+      setAssignment(response.assignment);
+      setLoading(false);
+    });
+
+    socket.on("generation-failed", (data) => {
+      setError(data.error || "Generation failed");
+      setLoading(false);
+    });
+
+    return () => {
+      socket.off("generation-progress");
+      socket.off("generation-completed");
+      socket.off("generation-failed");
+    };
+  }, [assignmentId]);
+
+  //poling logic (TEMP fallback polling)
   useEffect(() => {
     if (!assignmentId) return;
     // poll fetchAssignment() every 3 sec until completed or failed
