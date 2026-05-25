@@ -1,159 +1,132 @@
-# Turborepo starter
+# VedaAI — AI-Powered Assignment Generation Platform
 
-This Turborepo starter is maintained by the Turborepo core team.
+Production-ready distributed AI platform for generating structured academic assignments from PDF/text inputs using asynchronous AI processing, realtime updates, and scalable worker architecture.
 
-## Using this example
+## Live Demo
 
-Run the following command:
+- Frontend: https://assignment-ritog09-web-uuyb.vercel.app
 
-```sh
-npx create-turbo@latest
+## System architecture
+
+<img width="1335" height="1314" alt="veda-ai" src="https://github.com/user-attachments/assets/c4676bae-24c2-411a-8234-6c9d172e6091" />
+
+## Demo Video Explanation
+
+https://www.loom.com/share/e7cff720619f48d9a700c53b13c89d8d
+
+## Features
+
+- PDF/Text based assignment generation
+- AI-generated structured question papers
+- Realtime generation progress using WebSockets
+- Queue-based async processing with BullMQ
+- Cloudinary-based file storage
+- Search assignments
+- Download generated assignment PDFs
+- Chunking strategy for large PDFs
+- Structured AI response validation using Zod
+
+---
+
+## Tech Stack
+
+### Frontend
+- Next.js
+- TypeScript
+- Zustand
+- Socket.io Client
+
+### Backend
+- Express.js
+- BullMQ
+- Socket.io
+- MongoDB
+- Redis
+- Cloudinary
+
+### AI
+- Groq (`llama-3.3-70b-versatile`)
+- LangChain
+- Zod Validation
+
+### Deployment
+- Frontend → Vercel
+- API + Worker → Railway
+- Database → MongoDB Atlas
+- Queue → Upstash Redis
+- Storage → Cloudinary
+
+---
+
+# High-Level Flow
+
+```text
+User Uploads PDF/Text
+        ↓
+Frontend Sends Request
+        ↓
+Express API Creates Assignment
+        ↓
+BullMQ Job Added To Queue
+        ↓
+Worker Consumes Job
+        ↓
+PDF Parsing + Cleaning
+        ↓
+Chunking + Prompt Building
+        ↓
+Groq LLM Generation
+        ↓
+Zod Validation
+        ↓
+Generated Assignment Stored
+        ↓
+PDF Generation
+        ↓
+Cloudinary Upload
+        ↓
+Realtime WebSocket Updates
+        ↓
+Frontend Updates Instantly
 ```
 
-## What's inside?
+---
 
-This Turborepo includes the following packages/apps:
+## Realtime WebSocket Events
 
-### Apps and Packages
+- `generation-started`
+- `generation-progress`
+- `generation-completed`
+- `generation-failed`
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+---
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+## Environment Variables
 
-### Utilities
+```env
+MONGODB_URI=
+REDIS_URL=
 
-This Turborepo has some additional tools already setup for you:
+GROQ_API_KEY=
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+CLOUDINARY_CLOUD_NAME=
+CLOUDINARY_API_KEY=
+CLOUDINARY_API_SECRET=
 
-### Build
-
-To build all apps and packages, run the following command:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
-
-```sh
-cd my-turborepo
-turbo build
+NEXT_PUBLIC_API_URL=
+NEXT_PUBLIC_SOCKET_URL=
 ```
 
-Without global `turbo`, use your package manager:
+---
 
-```sh
-cd my-turborepo
-npx turbo build
-pnpm dlx turbo build
-pnpm exec turbo build
-```
+## Architecture Highlights
 
-You can build a specific package by using a [filter](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters):
+- Distributed worker-based architecture
+- Async AI processing pipeline
+- Queue-driven scalable backend
+- Realtime UI updates without polling
+- Cloud-native file handling
+- Structured AI output validation
+- Production deployment on Railway + Vercel
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
-
-```sh
-turbo build --filter=docs
-```
-
-Without global `turbo`:
-
-```sh
-npx turbo build --filter=docs
-pnpm exec turbo build --filter=docs
-pnpm exec turbo build --filter=docs
-```
-
-### Develop
-
-To develop all apps and packages, run the following command:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
-
-```sh
-cd my-turborepo
-turbo dev
-```
-
-Without global `turbo`, use your package manager:
-
-```sh
-cd my-turborepo
-npx turbo dev
-pnpm exec turbo dev
-pnpm exec turbo dev
-```
-
-You can develop a specific package by using a [filter](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters):
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
-
-```sh
-turbo dev --filter=web
-```
-
-Without global `turbo`:
-
-```sh
-npx turbo dev --filter=web
-pnpm exec turbo dev --filter=web
-pnpm exec turbo dev --filter=web
-```
-
-### Remote Caching
-
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
-
-Turborepo can use a technique known as [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
-
-```sh
-cd my-turborepo
-turbo login
-```
-
-Without global `turbo`, use your package manager:
-
-```sh
-cd my-turborepo
-npx turbo login
-pnpm exec turbo login
-pnpm exec turbo login
-```
-
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
-
-```sh
-turbo link
-```
-
-Without global `turbo`:
-
-```sh
-npx turbo link
-pnpm exec turbo link
-pnpm exec turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turborepo.dev/docs/crafting-your-repository/running-tasks)
-- [Caching](https://turborepo.dev/docs/crafting-your-repository/caching)
-- [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching)
-- [Filtering](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters)
-- [Configuration Options](https://turborepo.dev/docs/reference/configuration)
-- [CLI Usage](https://turborepo.dev/docs/reference/command-line-reference)
+---
