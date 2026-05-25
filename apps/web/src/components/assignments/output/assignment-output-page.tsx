@@ -1,5 +1,6 @@
 "use client";
 
+import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { useAssignmentPolling } from "./hooks/use-assignment-polling";
 import { AssignmentLoading } from "./sections/assignment-loading";
@@ -7,7 +8,7 @@ import { AssignmentProcessing } from "./sections/assignment-processing";
 import { AssignmentError } from "./sections/assignment-error";
 import { GeneratedPaper } from "./paper/generated-paper";
 
-export function AssignmentOutputPage() {
+function AssignmentOutputContent() {
   const searchParams = useSearchParams();
   const assignmentId = searchParams.get("id");
   const { assignment, loading, error } = useAssignmentPolling(assignmentId);
@@ -35,5 +36,13 @@ export function AssignmentOutputPage() {
       generatedPaper={assignment.generatedPaper}
       assignmentId={assignment._id}
     />
+  );
+}
+
+export function AssignmentOutputPage() {
+  return (
+    <Suspense fallback={null}>
+      <AssignmentOutputContent />
+    </Suspense>
   );
 }
