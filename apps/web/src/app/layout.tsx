@@ -11,7 +11,7 @@ const bricolage = Bricolage_Grotesque({
 });
 
 export const metadata: Metadata = {
-  title: "VedaAI — AI-Powered Teaching Assistant",
+  title: "VedaAI: AI-Powered Teaching Assistant",
   description:
     "Create assignments, set up rubrics, define marking criteria, and let AI assist with grading.",
 };
@@ -24,7 +24,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${bricolage.variable} font-sans`}>
-        <Toaster position="bottom-right" />
+        <Toaster position="top-right" />
         {children}
       </body>
     </html>
