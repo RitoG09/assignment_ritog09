@@ -2,16 +2,29 @@
 
 import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
+
 import { useAssignmentPolling } from "./hooks/use-assignment-polling";
+
 import { AssignmentLoading } from "./sections/assignment-loading";
 import { AssignmentProcessing } from "./sections/assignment-processing";
 import { AssignmentError } from "./sections/assignment-error";
+
 import { GeneratedPaper } from "./paper/generated-paper";
 
 function AssignmentOutputContent() {
   const searchParams = useSearchParams();
+
   const assignmentId = searchParams.get("id");
+
+  console.log("assignmentId:", assignmentId);
+
+  // Prevent hook from running with null
   const { assignment, loading, error } = useAssignmentPolling(assignmentId);
+
+  // Search params not hydrated yet
+  if (!assignmentId) {
+    return <AssignmentLoading />;
+  }
 
   if (loading) {
     return <AssignmentLoading />;
@@ -31,6 +44,11 @@ function AssignmentOutputContent() {
     );
   }
 
+  // Assignment not ready yet
+  if (!assignment) {
+    return <AssignmentLoading />;
+  }
+
   return (
     <GeneratedPaper
       generatedPaper={assignment.generatedPaper}
@@ -41,7 +59,7 @@ function AssignmentOutputContent() {
 
 export function AssignmentOutputPage() {
   return (
-    <Suspense fallback={null}>
+    <Suspense fallback={<AssignmentLoading />}>
       <AssignmentOutputContent />
     </Suspense>
   );

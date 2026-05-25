@@ -43,6 +43,8 @@ export const useAssignmentPolling = (assignmentId: string | null) => {
 
   // socket listeners
   useEffect(() => {
+    if (!assignmentId) return;
+
     socket.on("generation-progress", (data) => {
       addNotification(data.step);
       setAssignment((prev: any) => ({
@@ -52,7 +54,7 @@ export const useAssignmentPolling = (assignmentId: string | null) => {
     });
 
     socket.on("generation-completed", async (data) => {
-      const response = await getAssignmentById(assignmentId!);
+      const response = await getAssignmentById(assignmentId);
       setAssignment(response.assignment);
       toast.success(data.message || "Questions created");
       addNotification("Assignment completed");
@@ -73,17 +75,24 @@ export const useAssignmentPolling = (assignmentId: string | null) => {
     };
   }, [assignmentId]);
 
-  // //poling logic (TEMP fallback polling)
-  // useEffect(() => {
-  //   if (!assignmentId) return;
-  //   // poll fetchAssignment() every 3 sec until completed or failed
-  //   const interval = setInterval(async () => {
-  //     const latest = await fetchAssignment();
-  //     if (latest?.status === "completed" || latest?.status === "failed")
-  //       clearInterval(interval);
-  //   }, 3000);
-  //   return () => clearInterval(interval);
-  // }, [assignmentId]);
+  // Polling fallback to handle race conditions (e.g. if the socket events were emitted before the client mounted the page or joined the room)
+  useEffect(() => {
+    if (!assignmentId) return;
+
+    // Do not start polling if the status is already completed or failed
+    if (assignment?.status === "completed" || assignment?.status === "failed") {
+      return;
+    }
+
+    const interval = setInterval(async () => {
+      const latest = await fetchAssignment();
+      if (latest?.status === "completed" || latest?.status === "failed") {
+        clearInterval(interval);
+      }
+    }, 2000);
+
+    return () => clearInterval(interval);
+  }, [assignmentId, assignment?.status]);
 
   return {
     assignment,

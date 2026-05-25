@@ -24,6 +24,7 @@ import toast from "react-hot-toast";
 
 export function AssignmentCreateForm() {
   const [file, setFile] = useState<File | null>(null);
+  const [submitting, setSubmitting] = useState(false);
   const {
     control,
     register,
@@ -62,6 +63,7 @@ export function AssignmentCreateForm() {
     }
 
     try {
+      setSubmitting(true);
       const formData = new FormData();
 
       formData.append("file", file);
@@ -95,6 +97,7 @@ export function AssignmentCreateForm() {
     } catch (error) {
       console.error(error);
       toast.error("Failed to submit assignment form");
+      setSubmitting(false);
     }
   };
 
@@ -127,7 +130,7 @@ export function AssignmentCreateForm() {
             <AdditionalInfoField register={register} />
           </AssignmentDetailsCard>
 
-          <AssignmentFooterActions />
+          <AssignmentFooterActions loading={submitting} />
         </div>
       </div>
     </form>

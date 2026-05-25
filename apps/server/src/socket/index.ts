@@ -13,7 +13,6 @@ export const initSocket = (httpServer: any) => {
     },
   });
 
-
   io.on("connection", (socket) => {
     console.log("Client connected:", socket.id);
 

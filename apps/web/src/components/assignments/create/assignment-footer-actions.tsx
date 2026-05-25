@@ -1,4 +1,4 @@
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, Loader2 } from "lucide-react";
 
 interface AssignmentFooterActionsProps {
   loading?: boolean;
@@ -20,11 +20,21 @@ export function AssignmentFooterActions({
       <button
         type="submit"
         disabled={loading}
-        className="flex h-[54px] items-center gap-2.5 rounded-full bg-[#151515] px-7 text-[17px] font-semibold text-white shadow-[0_12px_32px_rgba(0,0,0,0.2)] transition-colors hover:bg-black lg:h-[58px] lg:px-9 lg:text-[18px]"
+        className="flex h-[54px] items-center gap-2.5 rounded-full bg-[#151515] px-7 text-[17px] font-semibold text-white shadow-[0_12px_32px_rgba(0,0,0,0.2)] transition-colors hover:bg-black lg:h-[58px] lg:px-9 lg:text-[18px] disabled:opacity-50 cursor-pointer"
       >
-        {loading ? "Generating..." : "Next"}
-        <ArrowRight className="h-5 w-5" />
+        {loading ? (
+          <>
+            <Loader2 className="h-5 w-5 animate-spin" />
+            <span>Generating...</span>
+          </>
+        ) : (
+          <>
+            <span>Next</span>
+            <ArrowRight className="h-5 w-5" />
+          </>
+        )}
       </button>
     </div>
   );
 }
+
