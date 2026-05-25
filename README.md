@@ -4,7 +4,7 @@ Production-ready distributed AI platform for generating structured academic assi
 
 ## Live Demo
 
-- Frontend: https://assignment-ritog09-web-uuyb.vercel.app
+https://assignment-ritog09-web-uuyb.vercel.app
 
 ## System architecture
 
