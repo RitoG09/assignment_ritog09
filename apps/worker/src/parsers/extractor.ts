@@ -5,22 +5,22 @@ import { cleanExtractedText } from "./cleaner";
 
 interface ExtractorInput {
   sourceType: SourceType;
-  filePath?: string;
+  fileUrl?: string;
   text?: string;
 }
 
 export const extractContent = async ({
   sourceType,
-  filePath,
+  fileUrl,
   text,
 }: ExtractorInput) => {
   let extractedText = "";
   switch (sourceType) {
     case "pdf":
-      if (!filePath) {
+      if (!fileUrl) {
         throw new Error("PDF file path missing");
       }
-      extractedText = await parsePdf(filePath);
+      extractedText = await parsePdf(fileUrl);
       break;
     case "text":
       if (!text) {

@@ -1,14 +1,6 @@
 import multer from "multer";
 
-const storage = multer.diskStorage({
-  destination: (_, __, cb) => {
-    cb(null, "../worker/uploads/");
-  },
-  filename: (_, file, cb) => {
-    const uniqueName = Date.now() + "-" + file.originalname;
-    cb(null, uniqueName);
-  },
-});
+const storage = multer.memoryStorage();
 
 const fileFilter: multer.Options["fileFilter"] = (_, file, cb) => {
   if (file.mimetype === "application/pdf") {

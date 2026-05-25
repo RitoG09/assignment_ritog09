@@ -1,0 +1,21 @@
+{
+  "name": "@repo/storage",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -b",
+    "dev": "tsc -b -w"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "cloudinary": "^2.10.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.3"
+  }
+}

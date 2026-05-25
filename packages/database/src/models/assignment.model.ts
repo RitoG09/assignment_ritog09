@@ -66,7 +66,10 @@ const assignmentSchema = new Schema(
       totalQuestions: Number,
       totalMarks: Number,
     },
-    pdfPath: {
+    fileUrl: {
+      type: String,
+    },
+    pdfUrl: {
       type: String,
     },
     error: {

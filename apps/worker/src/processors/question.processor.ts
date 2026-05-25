@@ -1,3 +1,4 @@
+import fs from "fs";
 import { generateQuestions } from "@repo/ai";
 import {
   saveGeneratedPaper,
@@ -8,19 +9,27 @@ import { Job } from "bullmq";
 import { extractContent } from "../parsers/extractor";
 import { emitSocketEvent } from "../services/socket.service";
 import { buildCompressedContext } from "../services/context.service";
+import { downloadFile } from "../services/download.service";
 
 export const processQuestionGenerationJob = async (job: Job) => {
   const { assignmentId, payload } = job.data;
 
   try {
     await updateAssignmentStatus(assignmentId, "processing");
+    let tempFilePath: string | undefined;
 
+    if (payload.sourceType === "pdf" && payload.fileUrl) {
+      tempFilePath = await downloadFile(payload.fileUrl, `${assignmentId}.pdf`);
+    }
     const extractedText = await extractContent({
       sourceType: payload.sourceType,
-      filePath: payload.filePath,
+      fileUrl: tempFilePath,
       text: payload.text,
     });
-
+    // CLEAN TEMP FILE
+    if (tempFilePath && fs.existsSync(tempFilePath)) {
+      fs.unlinkSync(tempFilePath);
+    }
     // before processing (websocket notification)
     await emitSocketEvent({
       assignmentId,

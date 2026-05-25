@@ -102,7 +102,7 @@ export function AssignmentsGrid() {
         </div>
 
         {/* Cards Skeleton Grid */}
-        <div className="mt-6 grid grid-cols-2 gap-5 pb-10">
+        <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-5 pb-10">
           {Array.from({ length: 4 }).map((_, i) => (
             <AssignmentCardSkeleton key={i} />
           ))}
@@ -195,7 +195,7 @@ export function AssignmentsGrid() {
           </button>
         </div>
       ) : (
-        <div className="mt-6 grid grid-cols-2 gap-5 pb-10">
+        <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-5 pb-10">
           {filteredAssignments.map((assignment) => (
             <AssignmentCard
               key={assignment._id}
@@ -209,6 +209,7 @@ export function AssignmentsGrid() {
             />
           ))}
         </div>
+
 
       )}
 

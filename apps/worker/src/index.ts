@@ -1,7 +1,8 @@
+import dotenv from "dotenv";
+dotenv.config();
 import "./workers/question.worker";
 import "./workers/pdf.worker";
 import { connectMongo } from "@repo/database";
-import { pdfQueue } from "@repo/queue";
 
 const startWorker = async () => {
   await connectMongo();

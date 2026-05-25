@@ -18,16 +18,16 @@ export function OutputHeader({ assignmentId }: OutputHeaderProps) {
       });
       await exportPdf(assignmentId);
 
-      let pdfPath = "";
-      for (let i = 0; i < 10; i++) {
+      let finalPdfUrl = "";
+      for (let i = 0; i < 15; i++) {
         await new Promise((resolve) => setTimeout(resolve, 1000));
         const response = await getAssignmentById(assignmentId);
-        if (response.assignment?.pdfPath) {
-          pdfPath = response.assignment.pdfPath;
+        if (response.assignment?.pdfUrl) {
+          finalPdfUrl = response.assignment.pdfUrl;
           break;
         }
       }
-      if (!pdfPath) {
+      if (!finalPdfUrl) {
         throw new Error("PDF generation timeout");
       }
 
@@ -35,8 +35,7 @@ export function OutputHeader({ assignmentId }: OutputHeaderProps) {
         id: "pdf",
       });
 
-      const pdfUrl = `http://localhost:8000/${pdfPath}`;
-      const response = await fetch(pdfUrl);
+      const response = await fetch(finalPdfUrl);
       const blob = await response.blob();
       const blobUrl = window.URL.createObjectURL(blob);
       const link = document.createElement("a");
@@ -46,6 +45,7 @@ export function OutputHeader({ assignmentId }: OutputHeaderProps) {
       link.click();
       link.remove();
       window.URL.revokeObjectURL(blobUrl);
+
     } catch (error) {
       toast.error("Failed to generate PDF", {
         id: "pdf",

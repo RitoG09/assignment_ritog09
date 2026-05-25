@@ -81,3 +81,16 @@ export const savePdfPath = async (assignmentId: string, pdfPath: string) => {
     },
   );
 };
+
+export const savePdfUrl = async (assignmentId: string, pdfUrl: string) => {
+  return AssignmentModel.findByIdAndUpdate(
+    assignmentId,
+    {
+      pdfUrl,
+    },
+    {
+      returnDocument: "after",
+    },
+  );
+};
+

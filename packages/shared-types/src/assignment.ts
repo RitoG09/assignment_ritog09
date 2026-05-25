@@ -13,12 +13,13 @@ export interface AssignmentInput {
   sourceType: SourceType;
   dueDate?: string;
   text?: string;
+  fileUrl?: string;
   additionalInstructions?: string;
   questionTypes: QuestionTypeConfig[];
 }
 
 export interface AssignmentProcessingPayload extends AssignmentInput {
-  filePath?: string;
+  fileUrl?: string;
 }
 
 export interface GeneratedPaper {
@@ -36,7 +37,7 @@ export interface AssignmentDocument {
   rawText?: string;
   additionalInstructions?: string;
   generatedPaper?: GeneratedPaper;
-  pdfPath?: string;
+  fileUrl?: string;
   error?: string;
   createdAt: Date;
   updatedAt: Date;

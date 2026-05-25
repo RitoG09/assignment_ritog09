@@ -1,5 +1,6 @@
 {
   "$schema": "https://turborepo.dev/schema.json",
+  "concurrency": "15",
   "ui": "tui",
   "tasks": {
     "build": {
