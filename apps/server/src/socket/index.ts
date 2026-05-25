@@ -5,10 +5,14 @@ let io: Server;
 export const initSocket = (httpServer: any) => {
   io = new Server(httpServer, {
     cors: {
-      origin: "http://localhost:3000",
+      origin: [
+        "http://localhost:3000",
+        "https://assignment-ritog09-web-uuyb.vercel.app",
+      ],
       credentials: true,
     },
   });
+
 
   io.on("connection", (socket) => {
     console.log("Client connected:", socket.id);

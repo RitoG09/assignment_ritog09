@@ -8,8 +8,17 @@ import socketRoutes from "./modules/socket/socket.route";
 
 export const app: Application = express();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: [
+      "http://localhost:3000",
+      "https://assignment-ritog09-web-uuyb.vercel.app",
+    ],
+    credentials: true,
+  }),
+);
 app.use(helmet());
+
 
 app.use(express.json());
 
