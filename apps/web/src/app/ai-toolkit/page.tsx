@@ -14,12 +14,13 @@ export default function AiToolkitPage() {
         </h1>
 
         <p className="mt-4 max-w-md text-[17px] text-[#8A8A8A] leading-[1.6] font-medium tracking-[-0.01em]">
-          Unlocking next-gen AI resources for educators. We are building powerful aids to simplify your lesson plan generations.
+          Unlocking next-gen AI resources for educators. We are building
+          powerful aids to simplify your lesson plan generations.
         </p>
 
         <div className="mt-8 flex items-center gap-2.5 px-6 h-[46px] bg-[#EAEAEA] text-[#333] font-bold rounded-full text-[15px] tracking-[-0.01em] shadow-[0_2px_8px_rgba(0,0,0,0.02)]">
           <Sparkles className="w-4 h-4 text-[#C55A11]" strokeWidth={2.5} />
-          <span>Coming Soon</span>
+          <span>Coming Soon..</span>
         </div>
       </div>
     </AppLayout>
