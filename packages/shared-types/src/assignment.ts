@@ -10,6 +10,8 @@ export interface QuestionTypeConfig {
 
 export interface AssignmentInput {
   title?: string;
+  subject?: string;
+  class?: string;
   sourceType: SourceType;
   dueDate?: string;
   text?: string;
@@ -31,6 +33,8 @@ export interface GeneratedPaper {
 export interface AssignmentDocument {
   _id: string;
   title?: string;
+  subject?: string;
+  class?: string;
   status: AssignmentStatus;
   sourceType: SourceType;
   dueDate?: string;

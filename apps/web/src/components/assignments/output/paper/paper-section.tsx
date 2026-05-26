@@ -5,9 +5,10 @@ interface PaperSectionProps {
     title: string;
     questions: any[];
   };
+  showAnswers?: boolean;
 }
 
-export function PaperSection({ section }: PaperSectionProps) {
+export function PaperSection({ section, showAnswers }: PaperSectionProps) {
   return (
     <div className="space-y-8">
       <div className="space-y-4 text-center">
@@ -18,7 +19,12 @@ export function PaperSection({ section }: PaperSectionProps) {
 
       <div className="space-y-5">
         {section.questions.map((question, index) => (
-          <QuestionRow key={index} index={index} question={question} />
+          <QuestionRow
+            key={index}
+            index={index}
+            question={question}
+            showAnswers={showAnswers}
+          />
         ))}
       </div>
     </div>

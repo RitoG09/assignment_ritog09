@@ -17,6 +17,8 @@ export const processPdfJob = async (job: Job) => {
   const pdfPath = await generateAssignmentPDF({
     assignmentId,
     generatedPaper: assignment.generatedPaper,
+    subject: assignment.subject,
+    class: assignment.class,
   });
 
   const absolutePath = path.resolve(__dirname, "../../", pdfPath);
@@ -25,7 +27,8 @@ export const processPdfJob = async (job: Job) => {
     console.log(`Uploading local PDF to Cloudinary for ${assignmentId}...`);
     const uploadResult = await cloudinary.uploader.upload(absolutePath, {
       folder: "veda-ai/pdfs",
-      resource_type: "auto",
+      resource_type: "raw",
+      public_id: assignmentId,
     });
 
     console.log(`Successfully uploaded to Cloudinary: ${uploadResult.secure_url}`);

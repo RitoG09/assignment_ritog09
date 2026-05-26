@@ -12,6 +12,8 @@ export const questionTypeConfigSchema = z.object({
 
 export const assignmentInputSchema = z.object({
   title: z.string().optional(),
+  subject: z.string().optional(),
+  class: z.string().optional(),
   sourceType: sourceTypeSchema,
   dueDate: z.string().optional(),
   text: z.string().optional(),

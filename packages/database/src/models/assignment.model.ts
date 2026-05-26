@@ -18,6 +18,12 @@ const questionSchema = new Schema(
       type: String,
       required: true,
     },
+    options: {
+      type: [String],
+    },
+    answer: {
+      type: String,
+    },
   },
   {
     _id: false,
@@ -40,6 +46,12 @@ const sectionSchema = new Schema(
 const assignmentSchema = new Schema(
   {
     title: {
+      type: String,
+    },
+    subject: {
+      type: String,
+    },
+    class: {
       type: String,
     },
     status: {

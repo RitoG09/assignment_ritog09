@@ -5,9 +5,13 @@ import PDFDocument from "pdfkit";
 export const generateAssignmentPDF = async ({
   assignmentId,
   generatedPaper,
+  subject,
+  class: className,
 }: {
   assignmentId: string;
   generatedPaper: any;
+  subject?: string;
+  class?: string;
 }) => {
   return new Promise<string>((resolve, reject) => {
     try {
@@ -28,6 +32,19 @@ export const generateAssignmentPDF = async ({
         align: "center",
       });
 
+      if (subject || className) {
+        doc.moveDown(0.5);
+        let subText = "";
+        if (subject) subText += `Subject: ${subject}`;
+        if (className) {
+          if (subText) subText += "  |  ";
+          subText += `Class: ${className}`;
+        }
+        doc.fontSize(14).text(subText, {
+          align: "center",
+        });
+      }
+
       doc.moveDown(2);
 
       generatedPaper.sections.forEach((section: any) => {
@@ -39,9 +56,20 @@ export const generateAssignmentPDF = async ({
 
         section.questions.forEach((question: any, index: number) => {
           doc.fontSize(12).text(`${index + 1}. ${question.question}`);
-          doc.text(
+          doc.fontSize(10).text(
             `Marks: ${question.marks} | Difficulty: ${question.difficulty}`,
+            { oblique: true }
           );
+
+          if (question.options && question.options.length > 0) {
+            doc.moveDown(0.2);
+            question.options.forEach((option: string, idx: number) => {
+              const letter = String.fromCharCode(65 + idx);
+              doc.fontSize(11).text(`      ${letter}. ${option}`);
+            });
+            doc.moveDown(0.2);
+          }
+
           doc.moveDown();
         });
 

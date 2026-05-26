@@ -7,14 +7,27 @@ interface GeneratedPaperProps {
     totalMarks: number;
     totalQuestions: number;
   };
+  subject?: string;
+  class?: string;
 }
 
-export function GeneratedPaper({ generatedPaper, assignmentId }: GeneratedPaperProps & {assignmentId: string}) {
+export function GeneratedPaper({
+  generatedPaper,
+  assignmentId,
+  subject,
+  class: className,
+}: GeneratedPaperProps & {
+  assignmentId: string;
+}) {
   return (
     <div className="mt-2 rounded-[38px] bg-[#5e5e5e] p-2 lg:px-7 lg:py-7">
       <div className="mx-auto max-w-[1400px] space-y-5">
         <OutputHeader assignmentId={assignmentId} />
-        <QuestionPaper generatedPaper={generatedPaper} />
+        <QuestionPaper
+          generatedPaper={generatedPaper}
+          subject={subject}
+          class={className}
+        />
       </div>
     </div>
   );

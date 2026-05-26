@@ -24,6 +24,9 @@ Each question carries ${q.marks} marks.
   return `
 Generate a question paper based on the following study material.
 
+${config.subject ? `SUBJECT: ${config.subject}` : ""}
+${config.class ? `TARGET CLASS/GRADE: ${config.class}` : ""}
+
 STUDY MATERIAL:
 ${extractedText}
 
@@ -41,6 +44,8 @@ IMPORTANT:
 - Follow the exact response schema
 - Group questions into sections
 - Use proper difficulty levels
+- For every generated question of any type, you MUST provide its correct answer key or model solution in the "answer" string field.
+- For every "mcq" type question, you MUST provide exactly 4 choice options in the "options" string array, and make sure the "answer" string exactly matches one of those choices.
 
 SECTION MAPPING:
 ${Object.entries(sectionMap)

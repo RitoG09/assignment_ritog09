@@ -14,6 +14,8 @@ export const QUESTION_TYPE_OPTIONS = Object.keys(
 
 export const defaultAssignmentValues: AssignmentFormValues = {
   title: "",
+  subject: "",
+  class: "",
   dueDate: "",
   additionalInfo: "",
   questionTypes: [

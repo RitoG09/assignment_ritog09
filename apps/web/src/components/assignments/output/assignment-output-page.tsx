@@ -53,6 +53,8 @@ function AssignmentOutputContent() {
     <GeneratedPaper
       generatedPaper={assignment.generatedPaper}
       assignmentId={assignment._id}
+      subject={assignment.subject}
+      class={assignment.class}
     />
   );
 }

@@ -73,6 +73,14 @@ export function AssignmentCreateForm() {
         formData.append("title", values.title);
       }
 
+      if (values.subject) {
+        formData.append("subject", values.subject);
+      }
+
+      if (values.class) {
+        formData.append("class", values.class);
+      }
+
       formData.append("dueDate", values.dueDate || "");
 
       formData.append(
@@ -114,6 +122,45 @@ export function AssignmentCreateForm() {
           <AssignmentDetailsCard>
             <UploadDropzone value={file} onChange={setFile} />
             <TitleField register={register} error={errors.title?.message} />
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+              <div>
+                <label className="text-[17px] font-semibold text-[#232323] lg:text-[18px] flex items-center gap-1">
+                  Subject <span className="text-[#FF5A1F]">*</span>
+                </label>
+                <div className="relative mt-2.5">
+                  <input
+                    {...register("subject")}
+                    placeholder="e.g. Physics"
+                    className="flex h-[58px] w-full items-center rounded-full border border-[#E2E2E2] bg-white px-6 text-[15px] text-[#2A2A2A] outline-none transition-colors hover:border-[#CFCFCF] focus:border-[#FF5A1F] lg:h-[62px] lg:px-7 lg:text-[16px]"
+                  />
+                  {errors.subject?.message && (
+                    <p className="mt-2 text-sm font-semibold text-[#EF4444] px-4">
+                      {errors.subject.message as string}
+                    </p>
+                  )}
+                </div>
+              </div>
+
+              <div>
+                <label className="text-[17px] font-semibold text-[#232323] lg:text-[18px] flex items-center gap-1">
+                  Class/Grade <span className="text-[#FF5A1F]">*</span>
+                </label>
+                <div className="relative mt-2.5">
+                  <input
+                    {...register("class")}
+                    placeholder="e.g. 5th"
+                    className="flex h-[58px] w-full items-center rounded-full border border-[#E2E2E2] bg-white px-6 text-[15px] text-[#2A2A2A] outline-none transition-colors hover:border-[#CFCFCF] focus:border-[#FF5A1F] lg:h-[62px] lg:px-7 lg:text-[16px]"
+                  />
+                  {errors.class?.message && (
+                    <p className="mt-2 text-sm font-semibold text-[#EF4444] px-4">
+                      {errors.class.message as string}
+                    </p>
+                  )}
+                </div>
+              </div>
+            </div>
+
             <DueDateField setValue={setValue} watch={watch} />
 
             <QuestionTypesSection

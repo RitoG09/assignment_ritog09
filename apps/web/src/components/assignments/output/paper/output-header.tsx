@@ -45,7 +45,6 @@ export function OutputHeader({ assignmentId }: OutputHeaderProps) {
       link.click();
       link.remove();
       window.URL.revokeObjectURL(blobUrl);
-
     } catch (error) {
       toast.error("Failed to generate PDF", {
         id: "pdf",
