@@ -10,7 +10,7 @@ https://assignment-ritog09-web-uuyb.vercel.app
 
 <img width="1335" height="1314" alt="veda-ai" src="https://github.com/user-attachments/assets/c4676bae-24c2-411a-8234-6c9d172e6091" />
 
-## Demo Video Explanation
+## Demo Video Explanation (updated some feat in prod now)
 
 https://www.loom.com/share/e7cff720619f48d9a700c53b13c89d8d
 
